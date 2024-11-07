@@ -1,0 +1,28 @@
+body {
+    background-image:url("Images/Other/back.png");
+}
+
+div.mycontainer {
+    width:100%;
+    overflow:auto;
+}
+
+#cards {
+    width:75%;
+    float:left;
+}
+
+#deck {
+    width:25%;
+    float:left;
+}
+
+img.card{
+    width:19%;
+    height:auto;
+    
+}
+
+#right-arrow {
+    float:right;
+}

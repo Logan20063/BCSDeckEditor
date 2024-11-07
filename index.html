@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Deck Editor</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="my-container">
+      <div id="cards">
+        <div>
+          <img class="card" id="card1" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card2" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card3" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card4" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card5" onclick="addToDeck(alt)" draggable="false">
+        </div>
+        <div>
+          <img id="left-arrow" src="Images/Other/left-arrow.png" onclick="changePage('left')">
+          <img id="right-arrow" src="Images/Other/right-arrow.png" onclick="changePage('right')">
+        </div>
+        <div>
+          <img class="card" id="card6" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card7" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card8" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card9" onclick="addToDeck(alt)" draggable="false">
+          <img class="card" id="card10" onclick="addToDeck(alt)" draggable="false">
+        </div>
+      </div>
+      <div id="deck">
+        <p id="test" style="color:white;"></p>
+      </div>
+    </div>
+    
+    <script src="script.js"></script>
+  </body>
+</html>
