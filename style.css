@@ -1,5 +1,6 @@
 body {
     background-image:url("Images/Other/back.png");
+    overflow:hidden;
 }
 
 div.mycontainer {
@@ -35,7 +36,9 @@ p.slotName {
 
 #deck {
     width:25%;
+    height:100vh;
     float:left;
+    overflow-y:auto;
 }
 
 img.card{
