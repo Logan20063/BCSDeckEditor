@@ -1,22 +1,53 @@
 function addToDeck(card) {
-    //element = document.getElementById("deck");
+    element = document.getElementById("deck");
     if(!deck.has(card)) {
         deck.set(card, 1);
-        // child = document.createElement("div");
-        // p = document.createElement("p");
-        // p.innerHTML="1X" + card;
-        // child.appendChild(p);
+        child = document.createElement("div");
+        p = document.createElement("p");
+        p.innerHTML="1X" + card;
+        child.id = card;
+        child.classList.add("deckSlot");
+        p.classList.add("slotName");
+        for(let i=0; i < cards.length; i++) {
+            if(cards[i].name == card && cards[i].type == "tower") {
+                child.classList.add("tower")
+            } else if(cards[i].name == card && cards[i].type == "bloon") {
+                child.classList.add("bloon")
+            } else if(cards[i].name == card && cards[i].type == "power") {
+                child.classList.add("power");
+            }
+        }
+        add = document.createElement("button");
+        minus = document.createElement("button");
+        add.innerHTML = "+";
+        minus.innerHTML = "-";
+        add.setAttribute("onClick", "addToDeckFromButton(this)")
+        add.classList.add("plus");
+        minus.classList.add("minus");
+        minus.setAttribute("onClick", "subtractFromDeck(this)")
+        element.appendChild(child);
+        child.appendChild(p);
+        child.appendChild(add);
+        child.appendChild(minus);
     } else {
         deck.set(card, deck.get(card)+1);
+        document.getElementById(card).firstChild.innerHTML = deck.get(card) + "X" + card;
     }
+}
 
+function addToDeckFromButton(elem) {
+    addToDeck(elem.parentElement.id);
+}
 
-
-    formatDeck = "";
-    for(key of deck.keys()) {
-        formatDeck += deck.get(key) + "X " + key + "<br>";
+function subtractFromDeck(elem) {
+    card = elem.parentElement.id;
+    if(deck.get(card) > 1) {
+        deck.set(card, deck.get(card) - 1)
+        document.getElementById(card).firstChild.innerHTML = deck.get(card) + "X" + card;
+    } else {
+        elem.parentElement.remove();
+        deck.delete(card);
     }
-    document.getElementById("test").innerHTML = formatDeck;
 }
 
 function changePage(direction) {
@@ -75,31 +106,32 @@ function sortCards(type) {
 }
 
 class Card {
-    constructor(name, cost, attack, rarity) {
+    constructor(name, cost, attack, rarity, type) {
         this.name = name;
         this.url = "Images/Cards/bcs-" + name + ".png";
         this.cost = cost;
         this.attack = attack;
         this.rarity = rarity;
+        this.type = type;
     }
 }
 
 function makeCards() {
-    makeCard("dart-monkey", 0, 20, 0)
-    makeCard("mortar-monkey", 2, 40, 0)
-    makeCard("tack-shooter", 2, 25, 0)
-    makeCard("boomerang-monkey", 3, 25, 1)
-    makeCard("sniper-monkey", 3, 75, 0)
-    makeCard("triple-shot", 3, 20, 0)
-    makeCard("banana-farm", 4, 0, 0)
-    makeCard("burny-stuff-mortar", 4, 40, 1)
-    makeCard("crossbow-monkey", 4, 35, 1)
-    makeCard("spikeopult", 4, 50, 2)
-    makeCard("monkey-village", 4, 0, 1)
+    makeCard("dart-monkey", 0, 20, 0, "tower")
+    makeCard("mortar-monkey", 2, 40, 0, "tower")
+    makeCard("tack-shooter", 2, 25, 0, "tower")
+    makeCard("boomerang-monkey", 3, 25, 1, "tower")
+    makeCard("sniper-monkey", 3, 75, 0, "tower")
+    makeCard("triple-shot", 3, 20, 0, "tower")
+    makeCard("banana-farm", 4, 0, 0, "tower")
+    makeCard("burny-stuff-mortar", 4, 40, 1, "tower")
+    makeCard("crossbow-monkey", 4, 35, 1, "tower")
+    makeCard("spikeopult", 4, 50, 2, "tower")
+    makeCard("monkey-village", 4, 0, 1, "tower")
 }
 
-function makeCard(name, cost, attack, rarity) {
-    cards.push(new Card(name, cost, attack, rarity))
+function makeCard(name, cost, attack, rarity, type) {
+    cards.push(new Card(name, cost, attack, rarity, type))
 }
 
 let deck = new Map();

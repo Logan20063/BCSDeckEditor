@@ -7,6 +7,27 @@ div.mycontainer {
     overflow:auto;
 }
 
+div.deckSlot {
+    display:flex;
+    flex-direction:row;
+}
+
+div.tower {
+    background-color:red;
+}
+
+div.bloon {
+    background-color:skyblue;
+}
+
+div.power {
+    background-color:purple;
+}
+
+p.slotName {
+    color:white;
+}
+
 #cards {
     width:75%;
     float:left;
@@ -25,4 +46,13 @@ img.card{
 
 #right-arrow {
     float:right;
+}
+
+button.plus {
+    background-color:greenyellow;
+    margin-left:auto;
+}
+
+button.minus {
+    background-color:maroon;
 }
