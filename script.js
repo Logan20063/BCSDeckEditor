@@ -1,37 +1,43 @@
 function addToDeck(card) {
     element = document.getElementById("deck");
     if(!deck.has(card)) {
-        deck.set(card, 1);
-        child = document.createElement("div");
-        p = document.createElement("p");
-        p.innerHTML="1X" + card;
-        child.id = card;
-        child.classList.add("deckSlot");
-        p.classList.add("slotName");
-        for(let i=0; i < cards.length; i++) {
-            if(cards[i].name == card && cards[i].type == "tower") {
-                child.classList.add("tower")
-            } else if(cards[i].name == card && cards[i].type == "bloon") {
-                child.classList.add("bloon")
-            } else if(cards[i].name == card && cards[i].type == "power") {
-                child.classList.add("power");
+        if(deckSize < 40) {
+            deckSize++;
+            deck.set(card, 1);
+            child = document.createElement("div");
+            p = document.createElement("p");
+            p.innerHTML="1X" + card;
+            child.id = card;
+            child.classList.add("deckSlot");
+            p.classList.add("slotName");
+            for(let i=0; i < cards.length; i++) {
+                if(cards[i].name == card && cards[i].type == "tower") {
+                    child.classList.add("tower")
+                } else if(cards[i].name == card && cards[i].type == "bloon") {
+                    child.classList.add("bloon")
+                } else if(cards[i].name == card && cards[i].type == "power") {
+                    child.classList.add("power");
+                }
             }
+            add = document.createElement("button");
+            minus = document.createElement("button");
+            add.innerHTML = "+";
+            minus.innerHTML = "-";
+            add.setAttribute("onClick", "addToDeckFromButton(this)")
+            add.classList.add("plus");
+            minus.classList.add("minus");
+            minus.setAttribute("onClick", "subtractFromDeck(this)")
+            element.appendChild(child);
+            child.appendChild(p);
+            child.appendChild(add);
+            child.appendChild(minus);
         }
-        add = document.createElement("button");
-        minus = document.createElement("button");
-        add.innerHTML = "+";
-        minus.innerHTML = "-";
-        add.setAttribute("onClick", "addToDeckFromButton(this)")
-        add.classList.add("plus");
-        minus.classList.add("minus");
-        minus.setAttribute("onClick", "subtractFromDeck(this)")
-        element.appendChild(child);
-        child.appendChild(p);
-        child.appendChild(add);
-        child.appendChild(minus);
     } else {
-        deck.set(card, deck.get(card)+1);
-        document.getElementById(card).firstChild.innerHTML = deck.get(card) + "X" + card;
+        if(deck.get(card) < 3 && deckSize < 40) {
+            deck.set(card, deck.get(card)+1);
+            document.getElementById(card).firstChild.innerHTML = deck.get(card) + "X" + card;
+            deckSize++;
+        }
     }
 }
 
@@ -334,6 +340,7 @@ let deck = new Map();
 let page = 0;
 let cards = []
 let deckName = "New Deck"
+let deckSize = 0;
 makeCards();
 sortCards("Gold");
 changePage("");
