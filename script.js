@@ -54,6 +54,7 @@ function subtractFromDeck(elem) {
         elem.parentElement.remove();
         deck.delete(card);
     }
+    deckSize--;
 }
 
 function changePage(direction) {
