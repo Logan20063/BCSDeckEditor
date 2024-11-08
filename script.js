@@ -265,9 +265,75 @@ function makeCard(name, cost, attack, rarity, type) {
     cards.push(new Card(name, cost, attack, rarity, type))
 }
 
+document.getElementById("import").addEventListener('click', () => {
+    document.getElementById("fileInput").click()
+});
+
+document.getElementById("fileInput").addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        // Define what happens once the file is read
+        reader.onload = function(event) {
+            cardsInDeck = document.getElementsByClassName("deckSlot");
+            for(let i=0; 0 != cardsInDeck.length;) {
+                deck.delete(cardsInDeck[i].id);
+                cardsInDeck[i].remove();            }
+          // File content will be available in event.target.result
+            const fileContents = event.target.result;
+            input = fileContents.split(',');
+            deckName = input[0];
+            document.getElementById("deckName").value = deckName;
+            for(let i=1; i < input.length; i += 2) {
+                for(let j = 0; j < input[i]; j++) {
+                    addToDeck(input[i+1]);                }
+            }
+        };
+      
+        // Read the file as text
+        reader.readAsText(file);
+        document.getElementById("fileInput").value = "";
+    }
+  });
+
+document.getElementById('export').addEventListener('click', () => {
+    // Content you want to write to the file
+    fileContent = "";
+    fileContent += deckName + ","
+    for(const [key,value] of deck) {
+        fileContent += value;
+        fileContent += ",";
+        fileContent += key;
+        fileContent += ",";
+    }
+
+    // Create a Blob with the content and specify the MIME type
+    const blob = new Blob([fileContent], { type: 'text/plain' });
+
+    // Generate a unique file name
+    const fileName = deckName + ".txt";
+
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+
+    // Programmatically click the link to trigger the download
+    link.click();
+
+    // Clean up the URL object to release memory
+    URL.revokeObjectURL(link.href);
+});
+
+document.getElementById("deckName").addEventListener('change', (e) => {
+    deckName = document.getElementById("deckName").value
+})
+
 let deck = new Map();
 let page = 0;
 let cards = []
+let deckName = "New Deck"
 makeCards();
 sortCards("Gold");
 changePage("");
