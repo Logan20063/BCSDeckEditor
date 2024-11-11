@@ -1,0 +1,1 @@
+Quincy Starter,Quincy,3,dart-monkey,3,red-bloon,3,blue-bloon,3,fortify,3,green-bloon,3,storm-of arrows,3,tack-shooter,3,sniper-monkey,3,supply-drop,3,triple-shot,2,pink-bloon,2,black-bloon,1,ceramic-bloon,2,white-bloon,1,moab,1,bfb,1,super-monkey,
