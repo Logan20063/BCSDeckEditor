@@ -10,12 +10,12 @@ function addToDeck(card) {
             child.id = card;
             child.classList.add("deckSlot");
             p.classList.add("slotName");
-            for(let i=0; i < cards.length; i++) {
-                if(cards[i].name == card && cards[i].type == "tower") {
+            for(let i=0; i < allCards.length; i++) {
+                if(allCards[i].name == card && allCards[i].type == "tower") {
                     child.classList.add("tower")
-                } else if(cards[i].name == card && cards[i].type == "bloon") {
+                } else if(allCards[i].name == card && allCards[i].type == "bloon") {
                     child.classList.add("bloon")
-                } else if(cards[i].name == card && cards[i].type == "power") {
+                } else if(allCards[i].name == card && allCards[i].type == "power") {
                     child.classList.add("power");
                 }
             }
@@ -67,19 +67,19 @@ function changePage(direction) {
         page++;
     }
     for(let i=1; i <= 10; i++) {
-        if(cards.length < (page * 10 + i)) {
+        if(currentCards.length < (page * 10 + i)) {
             document.getElementById("card" + i).style.visibility = "hidden";
         } else {
             document.getElementById("card" + i).style.visibility = "visible";
-            document.getElementById("card" + i).src = cards[page*10 + i-1].url;
-            document.getElementById("card" + i).alt=cards[page*10+i-1].name;
+            document.getElementById("card" + i).src = currentCards[page*10 + i-1].url;
+            document.getElementById("card" + i).alt=currentCards[page*10+i-1].name;
         }
     }
 }
 
 function sortCards(type) {
     if(type == "Gold") {
-        cards.sort(function(a, b) {
+        currentCards.sort(function(a, b) {
             if(a.cost - b.cost != 0) {
                 return a.cost-b.cost;
             } else {
@@ -87,9 +87,9 @@ function sortCards(type) {
             }
         })
     } else if(type == "Name") {
-        cards.sort(function(a,b) {return a.name.localeCompare(b.name)});
+        currentCards.sort(function(a,b) {return a.name.localeCompare(b.name)});
     } else if(type == "Attack") {
-        cards.sort(function(a,b){
+        currentCards.sort(function(a,b){
             if(a.attack - b.attack != 0) {
                 return a.attack - b.attack;
             } else {
@@ -101,7 +101,7 @@ function sortCards(type) {
             }
         });
     } else if(type == "Rarity") {
-        cards.sort(function(a,b) {
+        currentCards.sort(function(a,b) {
             if(a.rarity - b.rarity != 0) {
                 return a.rarity - b.rarity;
             } else {
@@ -113,7 +113,7 @@ function sortCards(type) {
             }
         })
     } else if(type == "Type") {
-        cards.sort(function(a,b) {
+        currentCards.sort(function(a,b) {
             if(a.type != b.type) {
                 if(a.type == "tower" && b.type == "bloon" || a.type == "tower" && b.type == "power" || a.type == "bloon" && b.type == "power") {
                     return -1
@@ -269,7 +269,7 @@ function makeCards() {
 }
 
 function makeCard(name, cost, attack, rarity, type) {
-    cards.push(new Card(name, cost, attack, rarity, type))
+    allCards.push(new Card(name, cost, attack, rarity, type))
 }
 
 document.getElementById("import").addEventListener('click', () => {
@@ -286,13 +286,17 @@ document.getElementById("fileInput").addEventListener('change', (event) => {
             cardsInDeck = document.getElementsByClassName("deckSlot");
             for(let i=0; 0 != cardsInDeck.length;) {
                 deck.delete(cardsInDeck[i].id);
-                cardsInDeck[i].remove();            }
-          // File content will be available in event.target.result
+                cardsInDeck[i].remove();           
+            }
+            deckSize = 0;
             const fileContents = event.target.result;
             input = fileContents.split(',');
             deckName = input[0];
             document.getElementById("deckName").value = deckName;
-            for(let i=1; i < input.length; i += 2) {
+            hero = input[1]
+            document.getElementById("heroSelect").value = hero
+            document.getElementById("heroPicture").src = "Images/Other/" + hero + ".webp"
+            for(let i=2; i < input.length; i += 2) {
                 for(let j = 0; j < input[i]; j++) {
                     addToDeck(input[i+1]);                }
             }
@@ -307,7 +311,7 @@ document.getElementById("fileInput").addEventListener('change', (event) => {
 document.getElementById('export').addEventListener('click', () => {
     // Content you want to write to the file
     fileContent = "";
-    fileContent += deckName + ","
+    fileContent += deckName + "," + hero + ","
     for(const [key,value] of deck) {
         fileContent += value;
         fileContent += ",";
@@ -337,11 +341,46 @@ document.getElementById("deckName").addEventListener('change', (e) => {
     deckName = document.getElementById("deckName").value
 })
 
+document.getElementById("sort").addEventListener("change", function() {
+    value = document.getElementById("sort").value;
+    sortCards(value);
+    changePage("");
+});
+
+function current(type) {
+    if(type == "all") {
+        currentCards = allCards;
+    } else {
+        currentCards = [];
+        for(let i=0; i < allCards.length; i++) {
+            if(allCards[i].type == type) {
+                currentCards.push(allCards[i]);
+            }
+        }
+    }
+}
+
+document.getElementById("type").addEventListener("change", function() {
+    value = document.getElementById("type").value
+    current(value)
+    value = document.getElementById("sort").value;
+    sortCards(value);
+    changePage("");
+});
+
+document.getElementById("heroSelect").addEventListener("change", function() {
+    document.getElementById("heroPicture").src = "Images/Other/" + document.getElementById("heroSelect").value + ".webp"
+    hero = document.getElementById("heroSelect").value
+})
+
 let deck = new Map();
 let page = 0;
-let cards = []
+let allCards = []
+let currentCards = []
 let deckName = "New Deck"
 let deckSize = 0;
+let hero = "Quincy"
 makeCards();
+current("all")
 sortCards("Gold");
 changePage("");

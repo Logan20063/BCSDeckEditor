@@ -59,3 +59,12 @@ button.plus {
 button.minus {
     background-color:maroon;
 }
+
+.hero {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+}
+
+#heroSelect {
+    margin-right: 10px;
+}

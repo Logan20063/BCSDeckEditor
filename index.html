@@ -8,6 +8,20 @@
     <div class="my-container">
       <div id="cards">
         <div>
+          <select id="type">
+            <option value="all">All Cards</option>
+            <option value="tower">Towers</option>
+            <option value="bloon">Bloons</option>
+            <option value="power">Powers</option>
+          </select>
+          <select id="sort">
+            <option value="Gold">Gold</option>
+            <option value="Name">Name</option>
+            <option value="Rarity">Rarity</option>
+            <option value="Type">Type</option>
+          </select>
+        </div>
+        <div>
           <img class="card" id="card1" onclick="addToDeck(alt)" draggable="false">
           <img class="card" id="card2" onclick="addToDeck(alt)" draggable="false">
           <img class="card" id="card3" onclick="addToDeck(alt)" draggable="false">
@@ -31,6 +45,15 @@
         <button id="export">export deck</button>
         <input type="file" id="fileInput" style="display: none;">
         <input type="text" id="deckName" value="New Deck">
+        <div id="hero">
+          <select id="heroSelect">
+            <option value="Quincy">Quincy</option>
+            <option value="Gwendolin">Gwendolin</option>
+            <option value="Obyn">Obyn</option>
+            <option value="Amelia">Amelia</option>
+          </select>
+          <img id="heroPicture" src="Images/Other/Quincy.webp" height="100" width="100">
+        </div>
       </div>
     </div>
     
