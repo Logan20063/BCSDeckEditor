@@ -97,13 +97,17 @@ function changePage(direction) {
     if(direction == "left") {
         page--;
         if(page <= -1) {
-            page++;
+            page = Math.floor(currentCards.length / 10)
         }
     } else if(direction == "right"){
         page++;
-    }
-    if(page > Math.floor(currentCards.length / 10)) {
-        page = Math.floor(currentCards.length / 10)
+        if(page > Math.floor(currentCards.length / 10)) {
+            page = 0
+        }
+    } else if(direction == "") {
+        if(page > Math.floor(currentCards.length / 10)) {
+            page = Math.floor(currentCards.length / 10)
+        }
     }
     for(let i=1; i <= 10; i++) {
         if(currentCards.length < (page * 10 + i)) {
