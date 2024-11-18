@@ -165,6 +165,9 @@ function sortCards(type) {
             }
         })
     }
+    if(document.getElementById("way").value == "Descending") {
+        currentCards.reverse();
+    }
 }
 
 class Card {
@@ -436,6 +439,12 @@ document.getElementById("search").addEventListener("change", function() {
     value = document.getElementById("type").value;
     value2 = document.getElementById("search").value;
     current(value, value2)
+    value = document.getElementById("sort").value;
+    sortCards(value);
+    changePage("");
+})
+
+document.getElementById("way").addEventListener("change", function() {
     value = document.getElementById("sort").value;
     sortCards(value);
     changePage("");
