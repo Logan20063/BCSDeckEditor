@@ -513,6 +513,7 @@ document.getElementById("way").addEventListener("change", function() {
 
 document.getElementById("downloadDeckImg").addEventListener("click", function () {
     const content = document.getElementById("cardPics");
+    content.style.backgroundImage = 'url("Images/Other/back.png")';
     
     // Use html2canvas to capture the div
     html2canvas(content).then(canvas => {
@@ -522,11 +523,12 @@ document.getElementById("downloadDeckImg").addEventListener("click", function ()
       // Create a temporary link element
       const link = document.createElement("a");
       link.href = imageData;
-      link.download = "div-image.png";
+      link.download = deckName + ".png";
       
       // Trigger the download
       link.click();
     });
+    content.style.backgroundImage = null;
 });
 
 let deck = new Map();
