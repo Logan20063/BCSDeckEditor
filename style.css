@@ -1,50 +1,78 @@
 body {
     background-image:url("Images/Other/back.png");
-    overflow:hidden;
+    /*overflow:hidden;*/
 }
 
-div.mycontainer {
+div.mycontainer div.deck-editor div.deckOutput{
     width:100%;
     overflow:auto;
+    display:grid;
+    grid-template-columns: 75% 25%;
 }
 
 div.deckSlot {
     display:flex;
     flex-direction:row;
+    border-radius: 15px;
 }
 
 div.tower {
-    background-color:red;
+    background-color:#e74a2b;
 }
 
 div.bloon {
-    background-color:skyblue;
+    background-color:#398fe3;
 }
 
 div.power {
-    background-color:purple;
+    background-color:#9e6dd6;
 }
 
-p.slotName {
+@font-face {
+    font-family: 'bloons';
+    src: url(Images/Other/BloonsTD-Regular.ttf);
+    font-weight: normal;
+	font-style: normal;
+}
+
+p.slotName{
+    font-family: 'bloons';
+    color:white;
+}
+p.slotAmount{
+    font-family: 'bloons';
     color:white;
 }
 
-#cards {
+#cards{
     width:75%;
     float:left;
 }
 
-#deck {
+#deck{
     width:25%;
     height:100vh;
     float:left;
-    overflow-y:auto;
+    overflow-y:scroll;
+}
+
+#cardPics {
+    width:75%;
+    float:left;
+    display:grid;
+    grid-template-columns: repeat(10, 10%);
+    gap:0px;
+}
+
+#outputOptions {
+    width:25%;
+    height:100vh;
+    float:left;
 }
 
 img.card{
     width:19%;
-    height:auto;
-    
+    height:auto; 
 }
 
 #right-arrow {
@@ -52,12 +80,20 @@ img.card{
 }
 
 button.plus {
-    background-color:greenyellow;
+    background-color:#02f900;
     margin-left:auto;
+    border-radius: 50%;
+    height:100%;
+    width:auto;
+    aspect-ratio:1/1;
 }
 
 button.minus {
-    background-color:maroon;
+    background-color:#eb0e54;
+    border-radius: 50%;
+    height:100%;
+    width:auto;
+    aspect-ratio:1/1;
 }
 
 .hero {
@@ -67,4 +103,18 @@ button.minus {
 
 #heroSelect {
     margin-right: 10px;
+}
+
+div.deckSlot {
+    height:6%
+}
+
+img.cardPicture{
+    width:105%;
+    height:auto;
+    margin:0px;
+}
+
+div.cardPictureSlot{
+    width:100%
 }

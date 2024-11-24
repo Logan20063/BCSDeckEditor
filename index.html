@@ -6,63 +6,69 @@
   </head>
   <body>
     <div class="my-container">
-      <div id="cards">
-        <div>
-          <select id="type">
-            <option value="all">All Cards</option>
-            <option value="tower">Towers</option>
-            <option value="bloon">Bloons</option>
-            <option value="power">Powers</option>
-          </select>
-          <select id="sort">
-            <option value="Gold">Gold</option>
-            <option value="Name">Name</option>
-            <option value="Type">Type</option>
-            <option value="Attack">Attack</option>
-            <option value="Rarity">Rarity</option>
-          </select>
-          <select id="way">
-            <option value="Ascending">Ascending</option>
-            <option value="Descending">Descending</option>
-          </select>
-          <input type="text" id="search" placeholder="">
+        <div id="cards">
+          <div>
+            <select id="type">
+              <option value="all">All Cards</option>
+              <option value="tower">Towers</option>
+              <option value="bloon">Bloons</option>
+              <option value="power">Powers</option>
+            </select>
+            <select id="sort">
+              <option value="Gold">Gold</option>
+              <option value="Name">Name</option>
+              <option value="Type">Type</option>
+              <option value="Attack">Attack</option>
+              <option value="Rarity">Rarity</option>
+            </select>
+            <select id="way">
+              <option value="Ascending">Ascending</option>
+              <option value="Descending">Descending</option>
+            </select>
+            <input type="text" id="search" placeholder="">
+          </div>
+          <div>
+            <img class="card" id="card1" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card2" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card3" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card4" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card5" onclick="addToDeck(alt)" draggable="false">
+          </div>
+          <div>
+            <img id="left-arrow" src="Images/Other/left-arrow.png" onclick="changePage('left')">
+            <img id="right-arrow" src="Images/Other/right-arrow.png" onclick="changePage('right')">
+          </div>
+          <div>
+            <img class="card" id="card6" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card7" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card8" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card9" onclick="addToDeck(alt)" draggable="false">
+            <img class="card" id="card10" onclick="addToDeck(alt)" draggable="false">
+          </div>
         </div>
-        <div>
-          <img class="card" id="card1" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card2" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card3" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card4" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card5" onclick="addToDeck(alt)" draggable="false">
+        <div id="deck">
+          <button id="import">import deck</button>
+          <button id="export">export deck</button>
+          <input type="file" id="fileInput" style="display: none;">
+          <input type="text" id="deckName" value="New Deck">
+          <div id="hero">
+            <select id="heroSelect">
+              <option value="Quincy">Quincy</option>
+              <option value="Gwendolin">Gwendolin</option>
+              <option value="Obyn">Obyn</option>
+              <option value="Amelia">Amelia</option>
+            </select>
+            <img id="heroPicture" src="Images/Other/Quincy.webp" height="100" width="100">
+          </div>
         </div>
-        <div>
-          <img id="left-arrow" src="Images/Other/left-arrow.png" onclick="changePage('left')">
-          <img id="right-arrow" src="Images/Other/right-arrow.png" onclick="changePage('right')">
+        <div id="cardPics">
         </div>
-        <div>
-          <img class="card" id="card6" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card7" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card8" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card9" onclick="addToDeck(alt)" draggable="false">
-          <img class="card" id="card10" onclick="addToDeck(alt)" draggable="false">
+        <div id="outputOptions">
+          <button id="downloadDeckImg">Download Image</button>
         </div>
-      </div>
-      <div id="deck">
-        <button id="import">import deck</button>
-        <button id="export">export deck</button>
-        <input type="file" id="fileInput" style="display: none;">
-        <input type="text" id="deckName" value="New Deck">
-        <div id="hero">
-          <select id="heroSelect">
-            <option value="Quincy">Quincy</option>
-            <option value="Gwendolin">Gwendolin</option>
-            <option value="Obyn">Obyn</option>
-            <option value="Amelia">Amelia</option>
-          </select>
-          <img id="heroPicture" src="Images/Other/Quincy.webp" height="100" width="100">
-        </div>
-      </div>
     </div>
     
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   </body>
 </html>

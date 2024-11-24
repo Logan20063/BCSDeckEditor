@@ -19,10 +19,13 @@ function addToDeck(card) {
             deck.set(card, 1);
             child = document.createElement("div");
             p = document.createElement("p");
-            p.innerHTML="1X" + card;
+            p2 = document.createElement("p");
+            p.innerHTML=card;
+            p2.innerHTML = "1X";
             child.id = card;
             child.classList.add("deckSlot");
             p.classList.add("slotName");
+            p2.classList.add("slotAmount")
             if(thisCard.type == "tower") {
                 child.classList.add("tower")
             } else if(thisCard.type == "bloon") {
@@ -40,17 +43,34 @@ function addToDeck(card) {
             minus.setAttribute("onClick", "subtractFromDeck(this)")
             child.appendChild(p);
             child.appendChild(add);
+            child.appendChild(p2)
             child.appendChild(minus);
+            
+            //sets up card pics
+            picSlot = document.createElement("div");
+            picSlot.id = card;
+            img = document.createElement("img");
+            img.crossOrgin = "anonymous";
+            img.src = "Images/Cards/bcs-" + card + ".png";
+            img.classList.add("cardPicture");
+            picSlot.appendChild(img);
+            picSlot.classList.add("cardPictureSlot");
+            console.log(img.crossOrigin);
+
             //sorts new card in deck
             let deckSlots = document.getElementsByClassName("deckSlot");
+            let cardPics = document.getElementsByClassName("cardPictureSlot");
             if(deckSlots.length == 0) {
                 element.appendChild(child);
+                document.getElementById("cardPics").appendChild(picSlot);
             } else {
                 let firstCard = findCard(deckSlots[0].id);
                 if (thisCard.cost < firstCard.cost || thisCard.cost == firstCard.cost && thisCard.name < firstCard.name){
                     element.insertBefore(child, deckSlots[0]);
+                    document.getElementById("cardPics").insertBefore(picSlot, cardPics[0])
                 } else {
                     let earlier = deckSlots[0]
+                    //let earlierPic = cardPics[0]
                     for(let i=0; i < deckSlots.length; i++) {
                         let lesser;
                         a = thisCard;
@@ -62,17 +82,50 @@ function addToDeck(card) {
                         }
                         if(lesser) {
                             earlier = deckSlots[i];
+                            //earlierPic = cardPics[i];
+                        }
+                    }
+                    let earlierPic = cardPics[0]
+                    for(let i=0; i < cardPics.length; i++) {
+                        let lesser;
+                        a = thisCard;
+                        b = findCard(cardPics[i].id);
+                        if(a.cost - b.cost != 0) {
+                            lesser = a.cost-b.cost > 0;
+                        } else {
+                            lesser = a.name > b.name;
+                        }
+                        if(lesser) {
+                            earlierPic = cardPics[i];
                         }
                     }
                     element.insertBefore(child, earlier.nextSibling);
+                    document.getElementById("cardPics").insertBefore(picSlot, earlierPic.nextSibling);
                 }
             }
         }
     } else {
         if(deck.get(card) < 3 && deckSize < 40) {
             deck.set(card, deck.get(card)+1);
-            document.getElementById(card).firstChild.innerHTML = deck.get(card) + "X" + card;
+            document.getElementById(card).getElementsByClassName("slotAmount")[0].innerHTML = deck.get(card) + "X";
             deckSize++;
+
+            picSlot = document.createElement("div");
+            picSlot.id = card;
+            img = document.createElement("img");
+            img.src = "Images/Cards/bcs-" + card + ".png";
+            img.crossOrgin = "anonymous";
+            img.classList.add("cardPicture");
+            picSlot.appendChild(img);
+            picSlot.classList.add("cardPictureSlot");
+            
+            let cardPics = document.getElementsByClassName("cardPictureSlot");
+            for(let i=0; i < cardPics.length; i++) {
+                if(picSlot.id == cardPics[i].id) {
+                    document.getElementById("cardPics").insertBefore(picSlot, cardPics[i]);
+                    break;
+                }
+            }
         }
     }
 }
@@ -85,12 +138,16 @@ function subtractFromDeck(elem) {
     card = elem.parentElement.id;
     if(deck.get(card) > 1) {
         deck.set(card, deck.get(card) - 1)
-        document.getElementById(card).firstChild.innerHTML = deck.get(card) + "X" + card;
+        document.getElementById(card).getElementsByClassName("slotAmount")[0].innerHTML = deck.get(card) + "X";
     } else {
         elem.parentElement.remove();
         deck.delete(card);
     }
     deckSize--;
+}
+
+function updateCardImages() {
+    
 }
 
 function changePage(direction) {
@@ -453,6 +510,24 @@ document.getElementById("way").addEventListener("change", function() {
     sortCards(value);
     changePage("");
 })
+
+document.getElementById("downloadDeckImg").addEventListener("click", function () {
+    const content = document.getElementById("cardPics");
+    
+    // Use html2canvas to capture the div
+    html2canvas(content).then(canvas => {
+      // Convert the canvas to a data URL
+      const imageData = canvas.toDataURL("image/png");
+      
+      // Create a temporary link element
+      const link = document.createElement("a");
+      link.href = imageData;
+      link.download = "div-image.png";
+      
+      // Trigger the download
+      link.click();
+    });
+});
 
 let deck = new Map();
 let page = 0;
