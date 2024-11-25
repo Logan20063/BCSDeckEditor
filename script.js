@@ -144,6 +144,14 @@ function subtractFromDeck(elem) {
         deck.delete(card);
     }
     deckSize--;
+
+    let cardPics = document.getElementsByClassName("cardPictureSlot");
+    for(let i=0; i < cardPics.length; i++) {
+        if(cardPics[i].id == card) {
+            cardPics[i].remove();
+            break;
+        }
+    }
 }
 
 function updateCardImages() {
